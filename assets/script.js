@@ -1,6 +1,6 @@
 // Marvel API
 // This includes Warfa's public key and MD5 Hash from Marvel APis
-var apiUrl ="https://gateway.marvel.com/v1/public/characters?ts=1&apikey=2cb5be9eaa4db327d3c0f660dc2b9ea4&hash=aec5b6452f0be1b53ed54e18bd0ea134";
+var apiUrl ="https://gateway.marvel.com/v1/public/comics?ts=1&apikey=2cb5be9eaa4db327d3c0f660dc2b9ea4&hash=aec5b6452f0be1b53ed54e18bd0ea134";
 
 // Console logs Marvel API in the console log
 fetch(apiUrl, {
@@ -12,7 +12,7 @@ fetch(apiUrl, {
     return response.json();
   })
   .then(handleApiMarvel);
-      
+
 const comicListEl = document.getElementById("comic-list");
 
 function handleApiMarvel(data) {
@@ -21,9 +21,11 @@ function handleApiMarvel(data) {
   for (let i = 0; i < results.length; i++) {
     const comic = results[i];
     const comicEl = document.createElement("div");
-    comicEl.textContent = comic.name;
+    comicEl.textContent = comic.title;
     comicListEl.appendChild(comicEl);
   }
+
+  console.log(data);
 };
 
 
@@ -41,7 +43,50 @@ var quizQuestions =[
       'Hawkeye'
 		],
 		correctAnswer: 'The Scarlet Witch/Wanda'
-	}
+  },
+  {
+    question: "Who was able to pick up Thors hammer in Endgame?'",
+		multipleChoice: [
+			'Loki',
+			'Ironman',
+			'Thanos',
+      'Captain America'
+		],
+    correctAnswer: 'Captain America'
+  },
+  {
+		
+    question: "What year was 1st spidey comic released?",
+		multipleChoice: [
+			'2022',
+			'1955',
+			'1962',
+      '1970'
+		],
+		correctAnswer: '1962',
+	},
+  {
+		
+    question: "What is the Hulk's real identity? extra points for full name",
+		multipleChoice: [
+			'Kristin Brewer',
+			'Samuel Oaks',
+			'Yizhong Wang',
+      'Bruce Banner'
+		],
+		correctAnswer: 'Bruce Banner',
+	},
+  {
+		
+    question: "What is the most recent Marvel movie",
+		multipleChoice: [
+			' Fetch recent movie from OMDB',
+			' Fetch recent movie from OMDB',
+			' Fetch recent movie from OMDB',
+      ' Fetch recent movie from OMDB'
+		],
+		correctAnswer: ' Fetch recent movie from OMDB #2',
+	},
 ];
 
 // Some of the timer elements are here for now...
@@ -83,4 +128,15 @@ function askQuestion() {
     }
   }
 
+  function pickAnswer(event) {
+    var buttonEl = event.target;
+    if (buttonEl.matches('.choice')) {
+      questionIndex++;
+    }
+      askQuestion();
+   
+
+
+  }
   startBtn.addEventListener("click", startQuiz);
+  choicesEl.addEventListener("click", pickAnswer);
