@@ -11,9 +11,22 @@ fetch(apiUrl, {
   .then(function (response) {
     return response.json();
   })
-  .then(function (data) {
-    console.log(data);
-  });
+  .then(handleApiMarvel);
+      
+const comicListEl = document.getElementById("comic-list");
+
+function handleApiMarvel(data) {
+  const results = data.data.results;
+
+  for (let i = 0; i < results.length; i++) {
+    const comic = results[i];
+    const comicEl = document.createElement("div");
+    comicEl.textContent = comic.name;
+    comicListEl.appendChild(comicEl);
+  }
+};
+
+
 
 
 // Questions functions and Events
@@ -45,7 +58,6 @@ function startQuiz() {
     
     questionsEl.removeAttribute('class');
     
-
 //   after the start screen is hidden it calls the questions function to load
     askQuestion();
 }
