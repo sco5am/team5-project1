@@ -1,7 +1,6 @@
 // Marvel API
 // This includes Warfa's public key and MD5 Hash from Marvel APis
 var apiUrl ="https://gateway.marvel.com/v1/public/comics?ts=1&apikey=2cb5be9eaa4db327d3c0f660dc2b9ea4&hash=aec5b6452f0be1b53ed54e18bd0ea134";
-
 // Console logs Marvel API in the console log
 fetch(apiUrl, {
   // The browser fetches the resource from the remote server without first looking in the cache.
@@ -140,3 +139,41 @@ function askQuestion() {
   }
   startBtn.addEventListener("click", startQuiz);
   choicesEl.addEventListener("click", pickAnswer);
+
+  
+//As the page loads, a random movie poster shows in our movie card 
+//created array of movie titles related to our quiz characters
+  var randomMovieArray = ['The Incredible Hulk', 'Doctor Strange', 'Spider-Man No Way Home', 'Avengers:Endgame', 'Black Panther'];
+//randomized movie order
+  var randomNumber = Math.floor((Math.random() * randomMovieArray.length - 1) + 1 );
+  console.log(randomNumber);
+  var APIkey2 = "25214ad2";
+  //gets movie card from HTML
+  var movieCardEL = document.querySelector("#movieCard");
+  //function to call img
+  function getPosterPhoto () {
+    var randomMovie = randomMovieArray[randomNumber];
+    console.log(randomMovie);
+    //establishing api url, &t= calls movie title
+    var APIUrl2= "http://omdbapi.com/?apikey=" + APIkey2 + "&t=" + randomMovie;
+
+    fetch (APIUrl2)
+    .then(function(response) {
+      console.log("THIS IS RESPONSE: ", response);
+      return response.json();
+    })
+    .then(function(data) {
+      console.log ("This IS DATA: ", data);
+      console.log (data);
+      //calls movie poster url
+      var posterUrl = data.Poster;
+      //removes "" so we can insert link into innerHTML 
+      var posterUrlLink = posterUrl.replaceAll("", '');
+      console.log(posterUrl);
+      movieCardEL.innerHTML = "<img src =" + posterUrlLink + ">";
+    })
+    
+  }
+
+  getPosterPhoto();
+
