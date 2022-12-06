@@ -50,6 +50,7 @@ var questionIndex = 0;
 var questionsEl = document.getElementById('questions');
 var choicesEl = document.getElementById('choices');
 var startBtn = document.getElementById('start');
+var feedbackEl = document.getElementById('feedback')
 
 function startQuiz() {
 // after pushing button it hides the start screen
@@ -80,6 +81,41 @@ function askQuestion() {
       choiceNode.textContent = choice;
 
       choicesEl.appendChild(choiceNode);
+    }
+  }
+
+  function questionClick(event) {
+    var buttonEl = event.target;
+  
+    // if the clicked element is not a choice button, do nothing.
+    if (!buttonEl.matches('.choice')) {
+      return;
+    }
+  
+    // check if user guessed wrong
+    if (buttonEl.value !== question[questionIndex].correctAnswer) {
+      
+      feedbackEl.textContent = 'Wrong!';
+    } else {
+     
+  
+      feedbackEl.textContent = 'Correct!';
+    }
+  
+    // flash right/wrong feedback on page for half a second
+    feedbackEl.setAttribute('class', 'feedback');
+    setTimeout(function () {
+      feedbackEl.setAttribute('class', 'feedback hide');
+    }, 1000);
+  
+    // move to next question
+    currentQuestionIndex++;
+  
+    // check if we've run out of questions
+    if (currentQuestionIndex === questions.length) {
+      quizEnd();
+    } else {
+      getQuestion();
     }
   }
 
