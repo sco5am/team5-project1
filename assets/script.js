@@ -16,11 +16,12 @@ const comicListEl = document.getElementById("comic-list");
 
 function handleApiMarvel(data) {
   const results = data.data.results;
-
+  // const comicCover = results[1];
   for (let i = 0; i < results.length; i++) {
     const comic = results[i];
     const comicEl = document.createElement("div");
-    comicEl.textContent = comic.title;
+    comicUrl = comic.thumbnail.path; 
+    comicEl.innerHTML = "<img src =" + comicUrl+ "/portrait_xlarge" + ".jpg" + ">";
     comicListEl.appendChild(comicEl);
   }
 
@@ -172,7 +173,7 @@ function askQuestion() {
 
     collapseEl.setAttribute('class', 'hide');
     
-    var resetNode = document.createElement('button')
+    var resetNode = document.getElementById('reset')
     endScreenEl.appendChild(resetNode)
     resetNode.onclick= reloadPage;
     function reloadPage(){
