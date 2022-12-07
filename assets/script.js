@@ -94,6 +94,8 @@ var questionIndex = 0;
 var questionsEl = document.getElementById('questions');
 var choicesEl = document.getElementById('choices');
 var startBtn = document.getElementById('start');
+var feedbackEl = document.getElementById('feedback');
+var collapseEl = document.getElementById('collapse');
 
 function startQuiz() {
 // after pushing button it hides the start screen
@@ -129,14 +131,55 @@ function askQuestion() {
 
   function pickAnswer(event) {
     var buttonEl = event.target;
-    if (buttonEl.matches('.choice')) {
-      questionIndex++;
+
+    // if the clicked element is not a choice button, do nothing.
+    if (!buttonEl.matches('.choice')) {
+      return;
     }
+  
+    // check if user guessed wrong
+    if (buttonEl.value !== quizQuestions[questionIndex].correctAnswer) {
+     
+      feedbackEl.textContent = 'Wrong!';
+    } else {
+    
+      feedbackEl.textContent = 'Correct!';
+    }
+  
+    // flash right/wrong feedback on page for half a second
+    feedbackEl.setAttribute('class', 'feedback');
+    setTimeout(function () {
+      feedbackEl.setAttribute('class', 'feedback hide');
+    }, 1000);
+  
+    // move to next question
+    questionIndex++;
+  
+    // check if we've run out of questions
+    if (questionIndex === quizQuestions.length) {
+      results();
+    } else {
       askQuestion();
-   
+    }
+}
 
+  function results() {
+    var endScreenEl = document.getElementById('end-screen');
+    endScreenEl.removeAttribute('class');
 
+    var finalScoreEl = document.getElementById('final-score');
+    finalScoreEl.textContent = '3';
+
+    collapseEl.setAttribute('class', 'hide');
+    
+    var resetNode = document.createElement('button')
+    endScreenEl.appendChild(resetNode)
+    resetNode.onclick= reloadPage;
+    function reloadPage(){
+      window.location.reload();
+    }
   }
+
   startBtn.addEventListener("click", startQuiz);
   choicesEl.addEventListener("click", pickAnswer);
 

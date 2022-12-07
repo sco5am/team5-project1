@@ -32,7 +32,7 @@
               </div>
         </div>
 
-        <section class="row my-4 border border-dark justify-content-around"> <!-- remove border -->
+        <section id="collapse" class="row my-4 border border-dark justify-content-around"> <!-- remove border -->
             <div id ="quiz"class="col-12 col-md-9 text-center">
 
                 <!-- Placeholder img for now until I can figure out to fecth img from api -->
@@ -49,21 +49,8 @@
                     </div>
                 </div>
                 <!--User Input Section-->
-                <div> <!--enter col sizing -->
-                    <div class="card">
-                    <h3 class="card-header bg-warning">
-                        User Input:
-                    </h3>
-                    <div class="card-body">
-                        <form id="search-form" class="form-input w-100">
-                            <input id="search-input" class="form-input w-100" type ="text" placeholder="Search">
-                            <button class="btn btn-info btn-warning">Search
-                            </button>
-                        </form>            
-                    </div>
-                    </div>
-                </div>
-
+                <div id="feedback" class="hide"></div>    
+            
                 <div id ="popular" class="col-12 col-sm-6 col-lg-4 mb-3">
                     <div class="card">
                     <h3 class="card-header bg-danger">
@@ -89,10 +76,13 @@
                             For more movies visit: 
                         </p>
                     </div>
-                    </div>
                 </div>
-                </section>
-            </div>  
+            </div>
+        </section>  
+        <div id="end-screen" class="hide">
+            <h4>Good Job!</h4>
+            <p id="final-score"></p>
+        </div> 
     </main>
        <!-- Footer Section -->
 
