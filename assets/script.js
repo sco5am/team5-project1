@@ -1,6 +1,6 @@
 // Marvel API
 // This includes Warfa's public key and MD5 Hash from Marvel APis
-var apiUrl ="https://gateway.marvel.com/v1/public/characters?ts=1&apikey=2cb5be9eaa4db327d3c0f660dc2b9ea4&hash=aec5b6452f0be1b53ed54e18bd0ea134";
+var apiUrl ="https://gateway.marvel.com/v1/public/comics?ts=1&apikey=2cb5be9eaa4db327d3c0f660dc2b9ea4&hash=aec5b6452f0be1b53ed54e18bd0ea134";
 
 // Console logs Marvel API in the console log
 fetch(apiUrl, {
@@ -12,7 +12,7 @@ fetch(apiUrl, {
     return response.json();
   })
   .then(handleApiMarvel);
-      
+
 const comicListEl = document.getElementById("comic-list");
 
 function handleApiMarvel(data) {
@@ -21,9 +21,11 @@ function handleApiMarvel(data) {
   for (let i = 0; i < results.length; i++) {
     const comic = results[i];
     const comicEl = document.createElement("div");
-    comicEl.textContent = comic.name;
+    comicEl.textContent = comic.title;
     comicListEl.appendChild(comicEl);
   }
+
+  console.log(data);
 };
 
 
@@ -41,16 +43,66 @@ var quizQuestions =[
       'Hawkeye'
 		],
 		correctAnswer: 'The Scarlet Witch/Wanda'
-	}
+  },
+  {
+    question: "Who was able to pick up Thors hammer in Endgame?'",
+		multipleChoice: [
+			'Loki',
+			'Ironman',
+			'Thanos',
+      'Captain America'
+		],
+    correctAnswer: 'Captain America'
+  },
+  {
+		
+    question: "What year was 1st spidey comic released?",
+		multipleChoice: [
+			'2022',
+			'1955',
+			'1962',
+      '1970'
+		],
+		correctAnswer: '1962',
+	},
+  {
+		
+    question: "What is the Hulk's real identity? extra points for full name",
+		multipleChoice: [
+			'Kristin Brewer',
+			'Samuel Oaks',
+			'Yizhong Wang',
+      'Bruce Banner'
+		],
+		correctAnswer: 'Bruce Banner',
+	},
+  {
+		
+    question: "What is the most recent Marvel movie",
+		multipleChoice: [
+			' Fetch recent movie from OMDB',
+			' Fetch recent movie from OMDB',
+			' Fetch recent movie from OMDB',
+      ' Fetch recent movie from OMDB'
+		],
+		correctAnswer: ' Fetch recent movie from OMDB #2',
+	},
 ];
 
 // Some of the timer elements are here for now...
 var questionIndex = 0;
 
+
 var questionsEl = document.getElementById('questions');
 var choicesEl = document.getElementById('choices');
 var startBtn = document.getElementById('start');
-var feedbackEl = document.getElementById('feedback')
+var feedbackEl = document.getElementById('feedback');
+var responseEl = document.getElementById('response');
+var nextBtn = document.getElementById('next-btn');
+var quizEl = document.getElementById('quiz');
+var collapseEl = document.getElementById('collapse');
+
+
 
 function startQuiz() {
 // after pushing button it hides the start screen
@@ -64,8 +116,8 @@ function startQuiz() {
 }
 
 function askQuestion() {
+    
     var currentQuestion = quizQuestions[questionIndex];
-  
     var titleEl = document.getElementById('question-title');
     titleEl.textContent = currentQuestion.question;
   
@@ -84,21 +136,20 @@ function askQuestion() {
     }
   }
 
-  function questionClick(event) {
+  function pickAnswer(event) {
     var buttonEl = event.target;
-  
+
     // if the clicked element is not a choice button, do nothing.
     if (!buttonEl.matches('.choice')) {
       return;
     }
   
     // check if user guessed wrong
-    if (buttonEl.value !== question[questionIndex].correctAnswer) {
-      
+    if (buttonEl.value !== quizQuestions[questionIndex].correctAnswer) {
+     
       feedbackEl.textContent = 'Wrong!';
     } else {
-     
-  
+    
       feedbackEl.textContent = 'Correct!';
     }
   
@@ -109,14 +160,35 @@ function askQuestion() {
     }, 1000);
   
     // move to next question
-    currentQuestionIndex++;
+    questionIndex++;
   
     // check if we've run out of questions
-    if (currentQuestionIndex === questions.length) {
-      quizEnd();
+    if (questionIndex === quizQuestions.length) {
+      results();
     } else {
-      getQuestion();
+      askQuestion();
+    }
+}
+
+  function results() {
+    var endScreenEl = document.getElementById('end-screen');
+    endScreenEl.removeAttribute('class');
+
+    var finalScoreEl = document.getElementById('final-score');
+    finalScoreEl.textContent = '3';
+
+    quizEl.setAttribute('class', 'hide');
+    collapseEl.setAttribute('class', 'hide');
+    
+    var resetNode = document.createElement('button')
+    endScreenEl.appendChild(resetNode)
+    resetNode.onclick= reloadPage;
+    function reloadPage(){
+      window.location.reload();
     }
   }
 
+  nextBtn.addEventListener('click', askQuestion)
+
   startBtn.addEventListener("click", startQuiz);
+  choicesEl.addEventListener("click", pickAnswer);
