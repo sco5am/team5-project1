@@ -1,7 +1,6 @@
 // Marvel API
 // This includes Warfa's public key and MD5 Hash from Marvel APis
-var apiUrl ="https://gateway.marvel.com/v1/public/characters?ts=1&apikey=2cb5be9eaa4db327d3c0f660dc2b9ea4&hash=aec5b6452f0be1b53ed54e18bd0ea134";
-
+var apiUrl ="https://gateway.marvel.com/v1/public/comics?ts=1&apikey=2cb5be9eaa4db327d3c0f660dc2b9ea4&hash=aec5b6452f0be1b53ed54e18bd0ea134";
 // Console logs Marvel API in the console log
 fetch(apiUrl, {
   // The browser fetches the resource from the remote server without first looking in the cache.
@@ -12,7 +11,7 @@ fetch(apiUrl, {
     return response.json();
   })
   .then(handleApiMarvel);
-      
+
 const comicListEl = document.getElementById("comic-list");
 
 function handleApiMarvel(data) {
@@ -21,9 +20,11 @@ function handleApiMarvel(data) {
   for (let i = 0; i < results.length; i++) {
     const comic = results[i];
     const comicEl = document.createElement("div");
-    comicEl.textContent = comic.name;
+    comicEl.textContent = comic.title;
     comicListEl.appendChild(comicEl);
   }
+
+  console.log(data);
 };
 
 
@@ -41,7 +42,50 @@ var quizQuestions =[
       'Hawkeye'
 		],
 		correctAnswer: 'The Scarlet Witch/Wanda'
-	}
+  },
+  {
+    question: "Who was able to pick up Thors hammer in Endgame?'",
+		multipleChoice: [
+			'Loki',
+			'Ironman',
+			'Thanos',
+      'Captain America'
+		],
+    correctAnswer: 'Captain America'
+  },
+  {
+		
+    question: "What year was 1st spidey comic released?",
+		multipleChoice: [
+			'2022',
+			'1955',
+			'1962',
+      '1970'
+		],
+		correctAnswer: '1962',
+	},
+  {
+		
+    question: "What is the Hulk's real identity? extra points for full name",
+		multipleChoice: [
+			'Kristin Brewer',
+			'Samuel Oaks',
+			'Yizhong Wang',
+      'Bruce Banner'
+		],
+		correctAnswer: 'Bruce Banner',
+	},
+  {
+		
+    question: "What is the most recent Marvel movie",
+		multipleChoice: [
+			' Fetch recent movie from OMDB',
+			' Fetch recent movie from OMDB',
+			' Fetch recent movie from OMDB',
+      ' Fetch recent movie from OMDB'
+		],
+		correctAnswer: ' Fetch recent movie from OMDB #2',
+	},
 ];
 
 // Some of the timer elements are here for now...
@@ -84,39 +128,53 @@ function askQuestion() {
     }
   }
 
-  function questionClick(event) {
+  function pickAnswer(event) {
     var buttonEl = event.target;
-  
-    // if the clicked element is not a choice button, do nothing.
-    if (!buttonEl.matches('.choice')) {
-      return;
+    if (buttonEl.matches('.choice')) {
+      questionIndex++;
     }
+      askQuestion();
+   
+
+
+  }
+  startBtn.addEventListener("click", startQuiz);
+  choicesEl.addEventListener("click", pickAnswer);
+
   
-    // check if user guessed wrong
-    if (buttonEl.value !== question[questionIndex].correctAnswer) {
-      
-      feedbackEl.textContent = 'Wrong!';
-    } else {
-     
-  
-      feedbackEl.textContent = 'Correct!';
-    }
-  
-    // flash right/wrong feedback on page for half a second
-    feedbackEl.setAttribute('class', 'feedback');
-    setTimeout(function () {
-      feedbackEl.setAttribute('class', 'feedback hide');
-    }, 1000);
-  
-    // move to next question
-    currentQuestionIndex++;
-  
-    // check if we've run out of questions
-    if (currentQuestionIndex === questions.length) {
-      quizEnd();
-    } else {
-      getQuestion();
-    }
+//As the page loads, a random movie poster shows in our movie card 
+//created array of movie titles related to our quiz characters
+  var randomMovieArray = ['The Incredible Hulk', 'Doctor Strange', 'Spider-Man No Way Home', 'Avengers:Endgame', 'Black Panther'];
+//randomized movie order
+  var randomNumber = Math.floor((Math.random() * randomMovieArray.length - 1) + 1 );
+  console.log(randomNumber);
+  var APIkey2 = "25214ad2";
+  //gets movie card from HTML
+  var movieCardEL = document.querySelector("#movieCard");
+  //function to call img
+  function getPosterPhoto () {
+    var randomMovie = randomMovieArray[randomNumber];
+    console.log(randomMovie);
+    //establishing api url, &t= calls movie title
+    var APIUrl2= "http://omdbapi.com/?apikey=" + APIkey2 + "&t=" + randomMovie;
+
+    fetch (APIUrl2)
+    .then(function(response) {
+      console.log("THIS IS RESPONSE: ", response);
+      return response.json();
+    })
+    .then(function(data) {
+      console.log ("This IS DATA: ", data);
+      console.log (data);
+      //calls movie poster url
+      var posterUrl = data.Poster;
+      //removes "" so we can insert link into innerHTML 
+      var posterUrlLink = posterUrl.replaceAll("", '');
+      console.log(posterUrl);
+      movieCardEL.innerHTML = "<img src =" + posterUrlLink + ">";
+    })
+    
   }
 
-  startBtn.addEventListener("click", startQuiz);
+  getPosterPhoto();
+
