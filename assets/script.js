@@ -74,11 +74,11 @@ var quizQuestions = [
 var questionIndex = 0;
 var totalAnswer = 5;
 
-var questionsEl = document.getElementById("questions");
-var choicesEl = document.getElementById("choices");
-var startBtn = document.getElementById("start");
-var feedbackEl = document.getElementById("feedback");
-var collapseEl = document.getElementById("collapse");
+var questionsEl = document.getElementById('questions');
+var choicesEl = document.getElementById('choices');
+var startBtn = document.getElementById('start');
+var feedbackEl = document.getElementById('feedback');
+var collapseEl = document.getElementById('collapse');
 
 function startQuiz() {
   // after pushing button it hides the start screen
@@ -166,10 +166,11 @@ function results() {
   }
 }
 
-startBtn.addEventListener("click", startQuiz);
-choicesEl.addEventListener("click", pickAnswer);
+  startBtn.addEventListener("click", startQuiz);
+  choicesEl.addEventListener("click", pickAnswer);
 
-//As the page loads, a random movie poster shows in our movie card
+  
+//As the page loads, a random movie poster shows in our movie card 
 //created array of movie titles related to our quiz characters
 var randomMovieArray = [
   "The Incredible Hulk",
