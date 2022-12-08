@@ -78,19 +78,20 @@ var quizQuestions =[
 	},
   {
 		
-    question: "What is the most recent Marvel movie",
+    question: "Which Marvel movie did Stan Lee NOT have a cameo",
 		multipleChoice: [
-			' Fetch recent movie from OMDB',
-			' Fetch recent movie from OMDB',
-			' Fetch recent movie from OMDB',
-      ' Fetch recent movie from OMDB'
+			' Black Widow',
+			' Captain America',
+			' Fantastic Four',
+      ' Iron Man'
 		],
-		correctAnswer: ' Fetch recent movie from OMDB #2',
+		correctAnswer: ' Black Widow',
 	},
 ];
 
 // Some of the timer elements are here for now...
 var questionIndex = 0;
+var totalAnswer = 5;
 
 var questionsEl = document.getElementById('questions');
 var choicesEl = document.getElementById('choices');
@@ -142,6 +143,8 @@ function askQuestion() {
     if (buttonEl.value !== quizQuestions[questionIndex].correctAnswer) {
      
       feedbackEl.textContent = 'Wrong!';
+      totalAnswer--;
+
     } else {
     
       feedbackEl.textContent = 'Correct!';
@@ -169,7 +172,12 @@ function askQuestion() {
     endScreenEl.removeAttribute('class');
 
     var finalScoreEl = document.getElementById('final-score');
-    finalScoreEl.textContent = '3';
+    if (totalAnswer <= 2) {
+    finalScoreEl.textContent = "you got " + totalAnswer + " correct... you stink!";
+    } else {
+    finalScoreEl.textContent = "you got " + totalAnswer + " correct!";
+    }
+    
 
     collapseEl.setAttribute('class', 'hide');
     
