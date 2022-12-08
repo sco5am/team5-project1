@@ -166,11 +166,39 @@ function results() {
   }
 }
 
-  startBtn.addEventListener("click", startQuiz);
-  choicesEl.addEventListener("click", pickAnswer);
 
-  
-//As the page loads, a random movie poster shows in our movie card 
+var tableEl = document.getElementById("thisTable");
+
+startBtn.addEventListener("click", startQuiz);
+choicesEl.addEventListener("click", pickAnswer);
+chtrBtn.addEventListener("click", function (event) {
+  event.preventDefault();
+  for (let i = 0; i < tableEl.rows.length; i++) {
+  var firstName = document.getElementById("fname").value;
+  var searchValue = document.getElementById("search-input").value;
+  //characterEl.textContent= firstName + searchValue;
+  localStorage.setItem("firstName", firstName)
+  localStorage.setItem("characterName", searchValue);
+  console.log(localStorage.getItem("characterName"));
+
+
+  var addRowEl = document.getElementById("addRow");
+  var addNameEl = document.getElementById("addName");
+  var addCharacter = document.getElementById("addCharacter");
+ 
+  //adding input name and favorite character to table via local storage
+  addRowEl.textContent = [i];
+  addNameEl.textContent = localStorage.getItem("firstName");
+  addCharacter.textContent = localStorage.getItem("characterName");
+
+}//end for loop 
+
+
+});
+
+
+
+//As the page loads, a random movie poster shows in our movie card
 //created array of movie titles related to our quiz characters
 var randomMovieArray = [
   "The Incredible Hulk",

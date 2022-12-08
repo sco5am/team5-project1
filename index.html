@@ -68,7 +68,7 @@
                     <form id="search-form" class="form-input w-100">
                         <input type="text" id="fname" name="fname"class="form-input w-100" placeholder="Name"> <br>
                         <input id="search-input" class="form-input w-100" type ="text" placeholder="Your Favorite Character">
-                        <button id="chtrBtn" class="btn-info btn-warning">Search
+                        <button id="chtrBtn" class="btn-info btn-warning">Add
                         </button>
         
                     </form> 
@@ -90,7 +90,27 @@
                     </div>
                     </div>
                 </div>
-        
+        <!--Added Favories table-->
+        <div id ="trackTable" class="col-12 col-sm-6 col-lg-4 mb-3">
+            <table id ="thisTable" class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Favorite Character</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th id = "addRow" scope="row"></th>
+                    <td id = "addName"></td>
+                    <td id = "addCharacter"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+        </div>
+         <!--End of Favories table-->
 
                 <div class="col-12 col-sm-6 col-lg-4 mb-3">
                     <div class="card">
