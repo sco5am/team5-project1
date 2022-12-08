@@ -167,38 +167,49 @@ function results() {
     window.location.reload();
   }
 }
-
+function removeChildren(el) {
+  while (el.firstChild) {
+    el.removeChild(el.firstChild);
+  }
+}
 
 var tableEl = document.getElementById("thisTable");
+var characters = [];
+var storedCharacters = localStorage.getItem("characters");
+if (storedCharacters) {
+  characters = JSON.parse(storedCharacters);
+}
 
 startBtn.addEventListener("click", startQuiz);
 choicesEl.addEventListener("click", pickAnswer);
 chtrBtn.addEventListener("click", function (event) {
   event.preventDefault();
-  for (let i = 0; i < tableEl.rows.length; i++) {
-  var firstName = document.getElementById("fname").value;
-  var searchValue = document.getElementById("search-input").value;
-  //characterEl.textContent= firstName + searchValue;
-  localStorage.setItem("firstName", firstName)
-  localStorage.setItem("characterName", searchValue);
-  console.log(localStorage.getItem("characterName"));
+  var tableBodyEl = document.getElementById("tableBody");
+  removeChildren(tableBodyEl);
+  characters.push({
+    name: document.getElementById("fname").value, 
+    value: document.getElementById("search-input").value,
+  })
+localStorage.setItem("characters", JSON.stringify(characters));
+  for (let i = 0; i < characters.length; i ++) {
+    var firstName = characters[i].name;
+    var searchValue = characters[i].value;
 
-
-  var addRowEl = document.getElementById("addRow");
-  var addNameEl = document.getElementById("addName");
-  var addCharacter = document.getElementById("addCharacter");
- 
-  //adding input name and favorite character to table via local storage
-  addRowEl.textContent = [i];
-  addNameEl.textContent = localStorage.getItem("firstName");
-  addCharacter.textContent = localStorage.getItem("characterName");
-
-}//end for loop 
+    var rowEL = document.createElement("tr");
+    var rowNumberEl = document.createElement("th");
+    var nameEl = document.createElement("td");
+    var charEl = document.createElement("td");
+    rowEL.appendChild(rowNumberEl);
+    rowEL.appendChild(nameEl);
+    rowEL.appendChild(charEl);
+    rowNumberEl.textContent = i + 1; 
+    nameEl.textContent = firstName;
+    charEl.textContent = searchValue; 
+    tableBodyEl.appendChild(rowEL); 
+  }
 
 
 });
-
-
 
 //As the page loads, a random movie poster shows in our movie card
 //created array of movie titles related to our quiz characters
