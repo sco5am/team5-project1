@@ -128,7 +128,7 @@ function pickAnswer(event) {
   }
 
   // flash right/wrong feedback on page for half a second
-  feedbackEl.setAttribute("class", "feedback");
+  feedbackEl.setAttribute("class", "feedback text-center");
   setTimeout(function () {
     feedbackEl.setAttribute("class", "feedback hide");
   }, 1000);
