@@ -74,13 +74,11 @@ var quizQuestions = [
 var questionIndex = 0;
 var totalAnswer = 5;
 
-var questionsEl = document.getElementById("questions");
-var choicesEl = document.getElementById("choices");
-var startBtn = document.getElementById("start");
-var feedbackEl = document.getElementById("feedback");
-var collapseEl = document.getElementById("collapse");
-var chtrBtn = document.getElementById("chtrBtn");
-var characterEl = document.getElementById("character-stuff");
+var questionsEl = document.getElementById('questions');
+var choicesEl = document.getElementById('choices');
+var startBtn = document.getElementById('start');
+var feedbackEl = document.getElementById('feedback');
+var collapseEl = document.getElementById('collapse');
 
 function startQuiz() {
   // after pushing button it hides the start screen
@@ -130,7 +128,7 @@ function pickAnswer(event) {
   }
 
   // flash right/wrong feedback on page for half a second
-  feedbackEl.setAttribute("class", "feedback");
+  feedbackEl.setAttribute("class", "feedback text-center");
   setTimeout(function () {
     feedbackEl.setAttribute("class", "feedback hide");
   }, 1000);
