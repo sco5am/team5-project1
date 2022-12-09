@@ -231,7 +231,7 @@ function getPosterPhoto() {
   var randomMovie = randomMovieArray[randomNumber];
   console.log(randomMovie);
   //establishing api url, &t= calls movie title
-  var APIUrl2 = "http://omdbapi.com/?apikey=" + APIkey2 + "&t=" + randomMovie;
+  var APIUrl2 = "https://omdbapi.com/?apikey=" + APIkey2 + "&t=" + randomMovie;
 
   fetch(APIUrl2)
     .then(function (response) {
