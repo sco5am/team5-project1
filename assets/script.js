@@ -2,6 +2,8 @@
 // This includes Warfa's public key and MD5 Hash from Marvel APis
 var apiUrl =
   "https://gateway.marvel.com/v1/public/comics?ts=1&apikey=2cb5be9eaa4db327d3c0f660dc2b9ea4&hash=aec5b6452f0be1b53ed54e18bd0ea134";
+
+
 // Console logs Marvel API in the console log
 fetch(apiUrl, {
   // The browser fetches the resource from the remote server without first looking in the cache.
@@ -17,15 +19,17 @@ const comicListEl = document.getElementById("comic-list");
 
 function handleApiMarvel(data) {
   const results = data.data.results;
-  // const comicCover = results[1];
-  for (let i = 0; i < results.length; i++) {
-    const comic = results[i];
+var randomComic = "";
+randomComic = 19;
+  var randomNumber = Math.floor(Math.random() * randomComic - 1 + 2);
+  console.log(randomNumber);
+    const comic = results[randomNumber];
     const comicEl = document.createElement("div");
-    comicUrl = comic.thumbnail.path;
+    const comicUrl = comic.thumbnail.path;
     comicEl.innerHTML =
-      "<img src =" + comicUrl + "/portrait_xlarge" + ".jpg" + ">";
+      "<img src =" + comicUrl + "/portrait_uncanny" + ".jpg" + ">";
     comicListEl.appendChild(comicEl);
-  }
+  
 
   console.log(data);
 }
@@ -79,8 +83,6 @@ var choicesEl = document.getElementById("choices");
 var startBtn = document.getElementById("start");
 var feedbackEl = document.getElementById("feedback");
 var collapseEl = document.getElementById("collapse");
-var chtrBtn = document.getElementById("chtrBtn");
-var characterEl = document.getElementById("character-stuff");
 
 function startQuiz() {
   // after pushing button it hides the start screen
@@ -130,7 +132,7 @@ function pickAnswer(event) {
   }
 
   // flash right/wrong feedback on page for half a second
-  feedbackEl.setAttribute("class", "feedback");
+  feedbackEl.setAttribute("class", "feedback text-center");
   setTimeout(function () {
     feedbackEl.setAttribute("class", "feedback hide");
   }, 1000);
@@ -187,8 +189,9 @@ chtrBtn.addEventListener("click", function (event) {
   var tableBodyEl = document.getElementById("tableBody");
   removeChildren(tableBodyEl);
   characters.push({
-    name: document.getElementById("fname").value, 
+    name: document.getElementById("fname").value,
     value: document.getElementById("search-input").value,
+
   })
 localStorage.setItem("characters", JSON.stringify(characters));
 //for loop to add row when + input when added 
@@ -202,13 +205,11 @@ localStorage.setItem("characters", JSON.stringify(characters));
     rowEL.appendChild(rowNumberEl);
     rowEL.appendChild(nameEl);
     rowEL.appendChild(charEl);
-    rowNumberEl.textContent = i + 1; 
+    rowNumberEl.textContent = i + 1;
     nameEl.textContent = firstName;
-    charEl.textContent = searchValue; 
-    tableBodyEl.appendChild(rowEL); 
+    charEl.textContent = searchValue;
+    tableBodyEl.appendChild(rowEL);
   }
-
-
 });
 
 //As the page loads, a random movie poster shows in our movie card
@@ -231,7 +232,7 @@ function getPosterPhoto() {
   var randomMovie = randomMovieArray[randomNumber];
   console.log(randomMovie);
   //establishing api url, &t= calls movie title
-  var APIUrl2 = "http://omdbapi.com/?apikey=" + APIkey2 + "&t=" + randomMovie;
+  var APIUrl2 = "https://omdbapi.com/?apikey=" + APIkey2 + "&t=" + randomMovie;
 
   fetch(APIUrl2)
     .then(function (response) {
