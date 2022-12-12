@@ -174,14 +174,14 @@ function removeChildren(el) {
     el.removeChild(el.firstChild);
   }
 }
-
+//calling table and associated elements, making array for local storage
 var tableEl = document.getElementById("thisTable");
 var characters = [];
 var storedCharacters = localStorage.getItem("characters");
 if (storedCharacters) {
   characters = JSON.parse(storedCharacters);
 }
-
+//event listners for click of added input
 startBtn.addEventListener("click", startQuiz);
 choicesEl.addEventListener("click", pickAnswer);
 chtrBtn.addEventListener("click", function (event) {
@@ -191,12 +191,13 @@ chtrBtn.addEventListener("click", function (event) {
   characters.push({
     name: document.getElementById("fname").value,
     value: document.getElementById("search-input").value,
-  });
-  localStorage.setItem("characters", JSON.stringify(characters));
-  for (let i = 0; i < characters.length; i++) {
+
+  })
+localStorage.setItem("characters", JSON.stringify(characters));
+//for loop to add row when + input when added 
+  for (let i = 0; i < characters.length; i ++) {
     var firstName = characters[i].name;
     var searchValue = characters[i].value;
-
     var rowEL = document.createElement("tr");
     var rowNumberEl = document.createElement("th");
     var nameEl = document.createElement("td");
