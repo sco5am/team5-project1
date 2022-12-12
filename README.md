@@ -9,17 +9,13 @@ Our team created this project in order to better understand JavaScript, HTML, CS
 
 ## Usage
 
-Provide instructions and examples for use. Include screenshots as needed.
-
-To add a screenshot, create an `assets/images` folder in your repository and upload your screenshot to it. Then, using the relative filepath, add it to your README using the following syntax:
+The live site can be viewed at the following link: https://sco5am.github.io/team5-project1/
 
     ```md
     ![alt text](assets/images/screenshot.png)
     ```
 
 ## Credits
-
-List your collaborators, if any, with links to their GitHub profiles.
 
 Samuel Oaks - https://github.com/sco5am
 Kristin Brewer - https://github.com/kristinbrewer
@@ -28,7 +24,7 @@ Yizhong Wang - https://github.com/YizhongWang
 
 
 
-If you used any third-party assets that require attribution, list the creators with links to their primary web presence in this section.
+APIS used for this Project:
 Marvel API - https://developer.marvel.com/
 
 OMDB API - https://www.omdbapi.com/ 
@@ -48,4 +44,4 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ## Features
 
-If your project has a lot of features, list them here.
+This project currently includes a quiz to test the users marvel knowledge, as well as randomly generated comic book and film recomendations. It also allows users to input their names and favorite Marvel character that will display on the webpage.
