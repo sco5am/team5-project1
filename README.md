@@ -11,9 +11,7 @@ Our team created this project in order to better understand JavaScript, HTML, CS
 
 The live site can be viewed at the following link: https://sco5am.github.io/team5-project1/
 
-    ```md
-    ![alt text](assets/images/screenshot.png)
-    ```
+  ![Animation](https://user-images.githubusercontent.com/115945161/207204318-62300042-8f3d-49a1-b33f-676a47c27c43.gif)
 
 ## Credits
 
